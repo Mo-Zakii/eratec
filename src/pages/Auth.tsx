@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/hooks/useAuth";
+import { isSupabaseConfigured } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -30,6 +31,14 @@ const Auth = () => {
       navigate("/");
     }
   }, [user, navigate]);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) {
+      toast.error(
+        "Sign-in is unavailable: the site was deployed without Supabase credentials. Redeploy with VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY at build time."
+      );
+    }
+  }, []);
 
   const validateForm = () => {
     const newErrors: { email?: string; password?: string; phone?: string } = {};
@@ -61,6 +70,11 @@ const Auth = () => {
 
     if (!validateForm()) return;
 
+    if (!isSupabaseConfigured) {
+      toast.error("Sign-in is unavailable until the server is redeployed with Supabase credentials.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -90,7 +104,12 @@ const Auth = () => {
         }
       }
     } catch (err) {
-      toast.error("An unexpected error occurred");
+      const message = err instanceof Error ? err.message : "";
+      if (message.includes("Unexpected token") || message.includes("not valid JSON")) {
+        toast.error("Sign-in failed: Supabase is not configured on this deployment.");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     } finally {
       setIsSubmitting(false);
     }
