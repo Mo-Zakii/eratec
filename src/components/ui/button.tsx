@@ -15,7 +15,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        // Aquafix custom variants
+        // Brand custom variants
         accent: "bg-tertiary text-tertiary-foreground hover:bg-tertiary/90 hover:shadow-glow font-semibold",
         "accent-outline": "border-2 border-tertiary text-tertiary bg-transparent hover:bg-tertiary hover:text-tertiary-foreground font-semibold",
         hero: "bg-tertiary text-primary font-semibold hover:shadow-glow hover:scale-105",

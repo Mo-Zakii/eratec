@@ -15,7 +15,6 @@ import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Pricing from "./pages/Pricing";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ServiceDetail from "./pages/ServiceDetail";
 import Services from "./pages/Services";
@@ -78,7 +77,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogDetail />} />
           <Route path="/resources" element={<Blog />} />
           <Route path="/resources/:slug" element={<BlogDetail />} />
-          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/pricing" element={<Navigate to="/contact" replace />} />
           <Route path="/quote" element={<Navigate to="/contact" replace />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />

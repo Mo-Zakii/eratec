@@ -39,3 +39,6 @@ Thumbs.db
 # Supabase local
 .branches
 .temp
+
+# Tooling metadata
+.lovable
